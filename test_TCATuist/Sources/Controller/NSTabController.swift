@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-final class NSTabController: ObservableObject {
-    @Published private(set) var tabBarController: UITabBarController?
+final class NSTabController {
+    private(set) var tabBarController: UITabBarController?
     let coordinators: [any Coordinatable]
     
     init(coordinators: [any Coordinatable]) {

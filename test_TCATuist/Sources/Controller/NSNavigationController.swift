@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-final class NSNavigationController: ObservableObject {
-    @Published private(set) var navigationController: UINavigationController?
+final class NSNavigationController {
+    private(set) var navigationController: UINavigationController?
     let baseView: AnyView
     let tabBarItem: UITabBarItem?
     
