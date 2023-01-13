@@ -19,11 +19,3 @@ protocol Coordinatable: ObservableObject {
 extension Coordinatable {
     var parentCoordinator: (any Coordinatable)? { nil }
 }
-
-
-protocol TabCoordinatable: ObservableObject {
-    associatedtype Content: View
-    
-    var router: NSTabController? { get set }
-    var rootView: Self.Content { get }
-}
