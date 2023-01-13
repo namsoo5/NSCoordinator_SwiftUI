@@ -18,18 +18,14 @@ final class MainCoordinator: Coordinatable {
         print("init coordinator")
     }
     
-    init(parent: (any Coordinatable)? = nil, router: NSNavigationController) {
+    init(parent: (any Coordinatable)? = nil, controller: NSNavigationController) {
         self.parentCoordinator = parent
-        self.controller = router
+        self.controller = controller
         print("init coordinator")
     }
     
     deinit {
         print("deinit coordinator")
-    }
-    
-    var rootView: some View {
-        NSNavigationView(router: controller).environmentObject(self)
     }
     
     func aView() {

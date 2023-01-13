@@ -48,8 +48,8 @@ final class TabCoordinator: TabCoordinatable {
     }
     
     private func createTab(rootView: any View, tabBarItem: UITabBarItem) -> some Coordinatable {
-        let router = NSNavigationController(baseView: rootView, tabBarItem: tabBarItem)
-        return MainCoordinator(router: router)
+        let controller = NSNavigationController(baseView: rootView, tabBarItem: tabBarItem)
+        return MainCoordinator(controller: controller)
     }
     
     func moveThirdTab() {
