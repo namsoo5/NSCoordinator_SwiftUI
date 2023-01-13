@@ -19,4 +19,7 @@ protocol Coordinatable: ObservableObject {
 
 extension Coordinatable {
     var parentCoordinator: (any Coordinatable)? { nil }
+    var rootView: some View {
+        NSNavigationView(controller: controller).environmentObject(self)
+    }
 }
