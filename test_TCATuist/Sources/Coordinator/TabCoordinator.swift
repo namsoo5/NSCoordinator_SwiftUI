@@ -1,12 +1,11 @@
 //
-//  TabRouter.swift
+//  TabCoordinator.swift
 //  NSCoordinatorMain
 //
-//  Created by 김남수 on 2023/01/12.
+//  Created by 김남수 on 2023/01/13.
 //  Copyright © 2023 ns. All rights reserved.
 //
 
-import Foundation
 import SwiftUI
 
 final class TabCoordinator: ObservableObject {
@@ -25,7 +24,7 @@ final class TabCoordinator: ObservableObject {
         image: UIImage(systemName: "heart"),
         selectedImage: nil
     )
-    lazy var router: NSTabRouter = NSTabRouter(coordinators: [tab1Coordinator, tab2Coordinator, tab3Coordinator])
+    lazy var router: NSTabController = NSTabController(coordinators: [tab1Coordinator, tab2Coordinator, tab3Coordinator])
     lazy var tab1Coordinator: some Coordinator = createTab(rootView: AView(), tabBarItem: tabBarItem1)
     lazy var tab2Coordinator: some Coordinator = createTab(rootView: BView(), tabBarItem: tabBarItem2)
     lazy var tab3Coordinator: some Coordinator = createTab(rootView: MainView(), tabBarItem: tabBarItem3)
@@ -47,7 +46,7 @@ final class TabCoordinator: ObservableObject {
     }
     
     private func createTab(rootView: any View, tabBarItem: UITabBarItem) -> some Coordinator {
-        let router = NSRouter(baseView: rootView, tabBarItem: tabBarItem)
+        let router = NSNavigationController(baseView: rootView, tabBarItem: tabBarItem)
         return MainCoordinator(router: router)
     }
     
@@ -62,44 +61,4 @@ final class TabCoordinator: ObservableObject {
     func secondTabNavigationTo(view: any View) {
         router.moveView(tabIndex: 1, view: view)
     }
-}
-
-final class NSTabRouter: ObservableObject {
-    @Published private(set) var tabBarController: UITabBarController?
-    private var coordinators: [any Coordinator] = []
-    
-    init(coordinators: [any Coordinator]) {
-        self.coordinators = coordinators
-        setupTabBarController(coordinators: coordinators)
-        print("init tab router")
-    }
-    
-    deinit {
-        print("deinit tab router")
-    }
-    
-    private func setupTabBarController(coordinators: [any Coordinator]) {
-        let views = coordinators.compactMap { $0.router.navigationController }
-        let tabBarController = UITabBarController()
-        tabBarController.viewControllers = views
-        self.tabBarController = tabBarController
-    }
-    
-    func setSelectedIndex(_ index: Int) {
-        tabBarController?.selectedIndex = index
-    }
-    
-    func moveView(tabIndex: Int, view: any View) {
-        coordinators[tabIndex].router.push(view: view)
-    }
-}
-
-struct NSTabView: UIViewControllerRepresentable {
-    weak var router: NSTabRouter?
-    
-    func makeUIViewController(context: Context) -> UITabBarController {
-        return router?.tabBarController ?? UITabBarController()
-    }
-    
-    func updateUIViewController(_ uiViewController: UITabBarController, context: Context) { }
 }

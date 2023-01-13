@@ -6,70 +6,9 @@
 //  Copyright © 2023 ns. All rights reserved.
 //
 
-import Foundation
 import SwiftUI
 
-protocol Coordinator: ObservableObject {
-    associatedtype Content: View
-    var router: NSRouter { get }
-    var rootView: Self.Content { get }
-}
-
-final class MainCoordinator: Coordinator {
-    let router: NSRouter
-    private var parentCoordinator: (any Coordinator)?
-    private var childCoordinator: [any Coordinator] = []
-    
-    init<T: View>(parent: (any Coordinator)? = nil, baseView: T) {
-        self.parentCoordinator = parent
-        self.router = NSRouter(baseView: baseView)
-        print("init coordinator")
-    }
-    
-    init(parent: (any Coordinator)? = nil, router: NSRouter) {
-        self.parentCoordinator = parent
-        self.router = router
-        print("init coordinator")
-    }
-    
-    deinit {
-        print("deinit coordinator")
-    }
-    
-    var rootView: some View {
-        NSNavigationView(router: router).environmentObject(self)
-    }
-    
-    func aView() {
-        let view = AView()
-        router.push(view: view)
-    }
-    
-    func bView() {
-        let view = BView()
-        router.push(view: view)
-    }
-    
-    func cView() {
-        let coordinator = MainCoordinator(parent: self, baseView: MainView())
-        childCoordinator.append(coordinator)
-        router.present(coordinator: coordinator)
-    }
-    
-    func moveParentView() {
-        parentCoordinator?.router.push(view: AView())
-    }
-    
-    func setViews<Content: View>(_ views: [Content]) {
-        router.setViews(views)
-    }
-    
-    func popToRootView() {
-        router.popToRootView()
-    }
-}
-
-final class NSRouter: ObservableObject {
+final class NSNavigationController: ObservableObject {
     @Published private(set) var navigationController: UINavigationController?
     let baseView: AnyView
     let tabBarItem: UITabBarItem?
@@ -123,8 +62,9 @@ final class NSRouter: ObservableObject {
     }
 }
 
+/// UIKit -> SwiftUI 네비게이션 뷰
 struct NSNavigationView: UIViewControllerRepresentable {
-    weak var router: NSRouter?
+    weak var router: NSNavigationController?
     
     func makeUIViewController(context: Context) -> UINavigationController {
         return router?.navigationController ?? UINavigationController()
