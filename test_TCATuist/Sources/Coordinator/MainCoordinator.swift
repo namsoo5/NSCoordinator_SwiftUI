@@ -8,18 +8,17 @@
 
 import SwiftUI
 
-final class MainCoordinator: Coordinator {
+final class MainCoordinator: Coordinatable {
     let controller: NSNavigationController
-    private var parentCoordinator: (any Coordinator)?
-    private var childCoordinator: [any Coordinator] = []
+    var parentCoordinator: (any Coordinatable)?
     
-    init<T: View>(parent: (any Coordinator)? = nil, baseView: T) {
+    init<T: View>(parent: (any Coordinatable)? = nil, baseView: T) {
         self.parentCoordinator = parent
         self.controller = NSNavigationController(baseView: baseView)
         print("init coordinator")
     }
     
-    init(parent: (any Coordinator)? = nil, router: NSNavigationController) {
+    init(parent: (any Coordinatable)? = nil, router: NSNavigationController) {
         self.parentCoordinator = parent
         self.controller = router
         print("init coordinator")
@@ -45,7 +44,6 @@ final class MainCoordinator: Coordinator {
     
     func cView() {
         let coordinator = MainCoordinator(parent: self, baseView: MainView())
-        childCoordinator.append(coordinator)
         controller.present(coordinator: coordinator)
     }
     

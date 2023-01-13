@@ -36,7 +36,7 @@ final class NSNavigationController: ObservableObject {
         navigationController?.pushViewController(viewController, animated: true)
     }
     
-    func present<Content: Coordinator>(coordinator: Content) {
+    func present<Content: Coordinatable>(coordinator: Content) {
         let baseView = coordinator.rootView.environmentObject(coordinator)
         let viewController = UIHostingController(rootView: baseView)
         viewController.hidesBottomBarWhenPushed = true

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-final class TabCoordinator: ObservableObject {
+final class TabCoordinator: TabCoordinatable {
     let tabBarItem1 = UITabBarItem(
         title: "A뷰",
         image: .add,
@@ -24,13 +24,15 @@ final class TabCoordinator: ObservableObject {
         image: UIImage(systemName: "heart"),
         selectedImage: nil
     )
-    lazy var router: NSTabController = NSTabController(coordinators: [tab1Coordinator, tab2Coordinator, tab3Coordinator])
-    lazy var tab1Coordinator: some Coordinator = createTab(rootView: AView(), tabBarItem: tabBarItem1)
-    lazy var tab2Coordinator: some Coordinator = createTab(rootView: BView(), tabBarItem: tabBarItem2)
-    lazy var tab3Coordinator: some Coordinator = createTab(rootView: MainView(), tabBarItem: tabBarItem3)
+    /// 코디네이터 넣어주는 순서대로 탭뷰 생성
+    var router: NSTabController?
+    lazy var tab1Coordinator: some Coordinatable = createTab(rootView: AView(), tabBarItem: tabBarItem1)
+    lazy var tab2Coordinator: some Coordinatable = createTab(rootView: BView(), tabBarItem: tabBarItem2)
+    lazy var tab3Coordinator: some Coordinatable = createTab(rootView: MainView(), tabBarItem: tabBarItem3)
     
     init() {
         print("init tab coordinator")
+        router = NSTabController(coordinators: [tab1Coordinator, tab2Coordinator, tab3Coordinator])
     }
     
     deinit {
@@ -45,20 +47,20 @@ final class TabCoordinator: ObservableObject {
             .environmentObject(tab3Coordinator)
     }
     
-    private func createTab(rootView: any View, tabBarItem: UITabBarItem) -> some Coordinator {
+    private func createTab(rootView: any View, tabBarItem: UITabBarItem) -> some Coordinatable {
         let router = NSNavigationController(baseView: rootView, tabBarItem: tabBarItem)
         return MainCoordinator(router: router)
     }
     
     func moveThirdTab() {
-        router.setSelectedIndex(2)
+        router?.setSelectedIndex(2)
     }
     
     func selectedTab(index: Int) {
-        router.setSelectedIndex(index)
+        router?.setSelectedIndex(index)
     }
     
     func secondTabNavigationTo(view: any View) {
-        router.moveView(tabIndex: 1, view: view)
+        router?.moveView(tabIndex: 1, view: view)
     }
 }

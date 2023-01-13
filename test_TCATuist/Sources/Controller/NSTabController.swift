@@ -10,9 +10,9 @@ import SwiftUI
 
 final class NSTabController: ObservableObject {
     @Published private(set) var tabBarController: UITabBarController?
-    private var coordinators: [any Coordinator] = []
+    private var coordinators: [any Coordinatable] = []
     
-    init(coordinators: [any Coordinator]) {
+    init(coordinators: [any Coordinatable]) {
         self.coordinators = coordinators
         setupTabBarController(coordinators: coordinators)
         print("init tab router")
@@ -22,7 +22,7 @@ final class NSTabController: ObservableObject {
         print("deinit tab router")
     }
     
-    private func setupTabBarController(coordinators: [any Coordinator]) {
+    private func setupTabBarController(coordinators: [any Coordinatable]) {
         let views = coordinators.compactMap { $0.controller.navigationController }
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = views
@@ -39,12 +39,24 @@ final class NSTabController: ObservableObject {
 }
 
 /// UIKit -> SwiftUI 텝바 뷰
+/// 해당타입에 environmentObject 추가해줘야합니다
 struct NSTabView: UIViewControllerRepresentable {
     weak var router: NSTabController?
     
     func makeUIViewController(context: Context) -> UITabBarController {
+        router?.tabBarController?.delegate = context.coordinator
         return router?.tabBarController ?? UITabBarController()
     }
     
     func updateUIViewController(_ uiViewController: UITabBarController, context: Context) { }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator()
+    }
+    
+    final class Coordinator: NSObject, UITabBarControllerDelegate {
+        func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+            print(tabBarController.selectedIndex)
+        }
+    }
 }
