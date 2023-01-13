@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+/// 일반 루트뷰 생성시 사용해야합니다
 protocol Coordinatable: ObservableObject {
     associatedtype Content: View
     

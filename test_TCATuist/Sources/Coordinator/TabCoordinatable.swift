@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+/// 탭바 생성시 사용해야합니다
 protocol TabCoordinatable: ObservableObject {
     associatedtype Content: View
     
