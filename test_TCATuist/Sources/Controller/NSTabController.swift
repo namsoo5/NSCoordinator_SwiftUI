@@ -10,7 +10,7 @@ import SwiftUI
 
 final class NSTabController: ObservableObject {
     @Published private(set) var tabBarController: UITabBarController?
-    private var coordinators: [any Coordinatable] = []
+    let coordinators: [any Coordinatable]
     
     init(coordinators: [any Coordinatable]) {
         self.coordinators = coordinators
