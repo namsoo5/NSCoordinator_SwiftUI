@@ -22,25 +22,6 @@ final class MainCoordinator: Coordinatable {
         print("deinit coordinator")
     }
     
-    func aView() {
-        let view = AView()
-        controller.push(view: view)
-    }
-    
-    func bView() {
-        let bCoordinator = BCoordinator(parent: self, baseView: BView(), tabBarItem: nil)
-        controller.present(coordinator: bCoordinator)
-    }
-    
-    func cView() {
-        let coordinator = MainCoordinator(parent: self, baseView: MainView())
-        controller.present(coordinator: coordinator)
-    }
-    
-    func moveParentView() {
-        parentCoordinator?.controller.push(view: AView())
-    }
-    
     func setViews<Content: View>(_ views: [Content]) {
         controller.setViews(views)
     }

@@ -41,11 +41,11 @@ final class NSTabController {
 /// UIKit -> SwiftUI 텝바 뷰
 /// 해당타입에 environmentObject 추가해줘야합니다
 struct NSTabView: UIViewControllerRepresentable {
-    weak var router: NSTabController?
+    weak var controller: NSTabController?
     
     func makeUIViewController(context: Context) -> UITabBarController {
-        router?.tabBarController?.delegate = context.coordinator
-        return router?.tabBarController ?? UITabBarController()
+        controller?.tabBarController?.delegate = context.coordinator
+        return controller?.tabBarController ?? UITabBarController()
     }
     
     func updateUIViewController(_ uiViewController: UITabBarController, context: Context) { }

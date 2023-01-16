@@ -12,6 +12,6 @@ import SwiftUI
 protocol TabCoordinatable: ObservableObject {
     associatedtype Content: View
     
-    var router: NSTabController? { get set }
+    var controller: NSTabController? { get set }
     var rootView: Self.Content { get }
 }

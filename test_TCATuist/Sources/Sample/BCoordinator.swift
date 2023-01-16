@@ -15,12 +15,4 @@ final class BCoordinator: Coordinatable {
         self.parentCoordinator = parent
         self.controller = NSNavigationController(baseView: baseView, tabBarItem: tabBarItem)
     }
-    
-    func moveToGreenView() {
-        controller.push(view: Color.green)
-    }
-    
-    func dismiss() {
-        parentCoordinator?.controller.dismiss()
-    }
 }

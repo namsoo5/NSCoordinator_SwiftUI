@@ -25,14 +25,11 @@ final class TabCoordinator: TabCoordinatable {
         selectedImage: nil
     )
     /// 코디네이터 넣어주는 순서대로 탭뷰 생성
-    var router: NSTabController?
-    lazy var tab1Coordinator: some Coordinatable = createTab(rootView: AView(), tabBarItem: tabBarItem1)
-    lazy var tab2Coordinator: some Coordinatable = createTab(rootView: BView(), tabBarItem: tabBarItem2)
-    lazy var tab3Coordinator: some Coordinatable = createTab(rootView: MainView(), tabBarItem: tabBarItem3)
+    var controller: NSTabController?
     
     init() {
         print("init tab coordinator")
-        router = NSTabController(coordinators: [tab1Coordinator, tab2Coordinator, tab3Coordinator])
+        controller = NSTabController(coordinators: [])
     }
     
     deinit {
@@ -40,11 +37,8 @@ final class TabCoordinator: TabCoordinatable {
     }
     
     var rootView: some View {
-        NSTabView(router: router)
+        NSTabView(controller: controller)
             .environmentObject(self)
-            .environmentObject(tab1Coordinator)
-            .environmentObject(tab2Coordinator)
-            .environmentObject(tab3Coordinator)
     }
     
     private func createTab(rootView: any View, tabBarItem: UITabBarItem) -> some Coordinatable {
@@ -52,14 +46,14 @@ final class TabCoordinator: TabCoordinatable {
     }
     
     func moveThirdTab() {
-        router?.setSelectedIndex(2)
+        controller?.setSelectedIndex(2)
     }
     
     func selectedTab(index: Int) {
-        router?.setSelectedIndex(index)
+        controller?.setSelectedIndex(index)
     }
     
     func secondTabNavigationTo(view: any View) {
-        router?.moveView(tabIndex: 1, view: view)
+        controller?.moveView(tabIndex: 1, view: view)
     }
 }
