@@ -13,5 +13,5 @@ protocol TabCoordinatable: ObservableObject {
     associatedtype Content: View
     
     var controller: NSTabController? { get set }
-    var rootView: Self.Content { get }
+    var defaultView: Self.Content { get }
 }

@@ -36,7 +36,8 @@ final class TabCoordinator: TabCoordinatable {
         print("deinit tab coordinator")
     }
     
-    var rootView: some View {
+    /// 탭별 enviromentObject 정의해줘야합니다
+    var defaultView: some View {
         NSTabView(controller: controller)
             .environmentObject(self)
     }
