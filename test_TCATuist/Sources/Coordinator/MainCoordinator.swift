@@ -12,15 +12,9 @@ final class MainCoordinator: Coordinatable {
     let controller: NSNavigationController
     var parentCoordinator: (any Coordinatable)?
     
-    init<T: View>(parent: (any Coordinatable)? = nil, baseView: T) {
+    init(parent: (any Coordinatable)? = nil, baseView: any View, tabBarItem: UITabBarItem? = nil) {
         self.parentCoordinator = parent
-        self.controller = NSNavigationController(baseView: baseView)
-        print("init coordinator")
-    }
-    
-    init(parent: (any Coordinatable)? = nil, controller: NSNavigationController) {
-        self.parentCoordinator = parent
-        self.controller = controller
+        self.controller = NSNavigationController(baseView: baseView, tabBarItem: tabBarItem)
         print("init coordinator")
     }
     

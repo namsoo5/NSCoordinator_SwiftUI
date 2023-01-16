@@ -16,8 +16,7 @@ protocol Coordinatable: ObservableObject {
     var parentCoordinator: (any Coordinatable)? { get set }
     var rootView: Self.Content { get }
     
-    init(parent: (any Coordinatable)?, baseView: Self.Content)
-    init(parent: (any Coordinatable)?, controller: NSNavigationController)
+    init(parent: (any Coordinatable)?, baseView: any View, tabBarItem: UITabBarItem?)
 }
 
 extension Coordinatable {
