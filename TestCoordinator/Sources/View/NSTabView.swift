@@ -9,7 +9,6 @@
 import SwiftUI
 
 /// UIKit -> SwiftUI 텝바 뷰
-/// 해당타입에 environmentObject 추가해줘야합니다
 struct NSTabView: UIViewControllerRepresentable {
     weak var controller: NSTabController?
     

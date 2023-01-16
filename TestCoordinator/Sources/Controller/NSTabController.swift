@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+/// 탭바기능을 담당합니다
 final class NSTabController {
     private(set) var tabBarController: UITabBarController?
     let coordinators: [any Coordinatable]

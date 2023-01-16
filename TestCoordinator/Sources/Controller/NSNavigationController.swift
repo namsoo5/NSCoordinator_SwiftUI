@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+/// 네비게이션 기능을 담당합니다
 final class NSNavigationController {
     enum BarItemDirection {
         case leading, trailing

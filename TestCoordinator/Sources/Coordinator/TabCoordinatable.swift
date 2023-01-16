@@ -13,5 +13,18 @@ protocol TabCoordinatable: ObservableObject {
     associatedtype Content: View
     
     var controller: NSTabController? { get set }
+    
+    /**
+     탭의 최초뷰를 보여주는 부분으로,
+     자기자신과 탭별 enviromentObject 정의해줘야합니다
+     
+     ``` swift
+     // Usage
+     NSTabView(controller: controller)
+     .environmentObject(self)
+     .environmentObject(aCoordinator)
+     ...
+     ```
+     */
     var defaultView: Self.Content { get }
 }
