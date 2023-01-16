@@ -61,14 +61,3 @@ final class NSNavigationController {
         navigationController?.popToRootViewController(animated: true)
     }
 }
-
-/// UIKit -> SwiftUI 네비게이션 뷰
-struct NSNavigationView: UIViewControllerRepresentable {
-    weak var controller: NSNavigationController?
-    
-    func makeUIViewController(context: Context) -> UINavigationController {
-        return controller?.navigationController ?? UINavigationController()
-    }
-    
-    func updateUIViewController(_ uiViewController: UINavigationController, context: Context) { }
-}
