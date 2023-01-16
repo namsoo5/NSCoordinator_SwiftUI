@@ -130,8 +130,24 @@ struct AView: View {
 }
 
 struct BView: View {
+    @EnvironmentObject var coordinator: BCoordinator
+    
     var body: some View {
-        Color.orange
+        ZStack {
+            Color.orange
+            VStack {
+                Button {
+                    coordinator.moveToGreenView()
+                } label: {
+                    Text("그린뷰 이동")
+                }
+                Button {
+                    coordinator.dismiss()
+                } label: {
+                    Text("닫기")
+                }
+            }
+        }
     }
 }
 

@@ -28,8 +28,8 @@ final class MainCoordinator: Coordinatable {
     }
     
     func bView() {
-        let view = BView()
-        controller.push(view: view)
+        let bCoordinator = BCoordinator(parent: self, baseView: BView(), tabBarItem: nil)
+        controller.present(coordinator: bCoordinator)
     }
     
     func cView() {
