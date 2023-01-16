@@ -9,6 +9,10 @@
 import SwiftUI
 
 final class NSNavigationController {
+    enum BarItemDirection {
+        case leading, trailing
+    }
+    
     private(set) var navigationController: UINavigationController?
     let baseView: AnyView
     let tabBarItem: UITabBarItem?
@@ -59,5 +63,22 @@ final class NSNavigationController {
     
     func popToRootView() {
         navigationController?.popToRootViewController(animated: true)
+    }
+    
+    func setTitle(_ title: String, color: UIColor) {
+        navigationController?.visibleViewController?.title = title
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: color]
+    }
+    
+    func setBarButtonItems(direction: BarItemDirection, items: [UIBarButtonItem] = []) {
+        if direction == .trailing {
+            navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems(items, animated: true)
+        } else {
+            navigationController?.visibleViewController?.navigationItem.setLeftBarButtonItems(items, animated: true)
+        }
+    }
+    
+    func setBackground(color: UIColor) {
+        navigationController?.navigationBar.backgroundColor = color
     }
 }

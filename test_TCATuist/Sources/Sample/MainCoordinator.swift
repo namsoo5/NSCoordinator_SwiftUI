@@ -22,11 +22,26 @@ final class MainCoordinator: Coordinatable {
         print("deinit coordinator")
     }
     
+    func pushAView() {
+        controller.push(view: AView())
+    }
+    
     func setViews<Content: View>(_ views: [Content]) {
         controller.setViews(views)
     }
     
     func popToRootView() {
         controller.popToRootView()
+    }
+    
+    func setupTitle(_ title: String) {
+        controller.setTitle(title, color: .blue)
+        controller.setBarButtonItems(
+            direction: .leading,
+            items: [
+                UIBarButtonItem(systemItem: .add)
+            ]
+        )
+        controller.setBackground(color: .gray)
     }
 }
