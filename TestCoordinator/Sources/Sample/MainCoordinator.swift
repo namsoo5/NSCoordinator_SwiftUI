@@ -75,4 +75,12 @@ final class MainCoordinator: Coordinatable {
             UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(popToRootView))
         ])
     }
+    
+    func setMultilineTitle(first: String, second: String) {
+        
+        let secondText = NSAttributedString(string: "\n\(second)", attributes: [.foregroundColor: UIColor.gray])
+        let attribute = NSMutableAttributedString(string: first, attributes: [.foregroundColor: UIColor.gray])
+        attribute.append(secondText)
+        controller.setMultilineTitle(attributedString: attribute)
+    }
 }

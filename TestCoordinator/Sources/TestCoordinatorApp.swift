@@ -40,7 +40,7 @@ struct AView: View {
         VStack {
             Text("A 뷰")
             Button {
-                coordinator.setupTitle("타이틀변경!!")
+                coordinator.setMultilineTitle(first: "첫번째", second: "두번째줄")
             } label: {
                 Text("setup Navi")
             }

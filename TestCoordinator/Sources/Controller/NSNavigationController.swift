@@ -36,6 +36,18 @@ final class NSNavigationController {
         self.navigationController = navigationController
     }
     
+    private var titleLabel: UILabel {
+        let labelFrame: CGRect = CGRect(
+            x: 0,
+            y: 0,
+            width: UIScreen.main.bounds.size.width / 2,
+            height: 40
+        )
+        let label = UILabel(frame: labelFrame)
+        label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+        return label
+    }
+    
     func push<Content: View>(view: Content) {
         let viewController = UIHostingController(rootView: view)
         navigationController?.pushViewController(viewController, animated: true)
@@ -66,15 +78,38 @@ final class NSNavigationController {
         navigationController?.popToRootViewController(animated: true)
     }
     
-    func setTitle(_ title: String, color: UIColor) {
-        navigationController?.visibleViewController?.title = title
-        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: color]
+    func setTitle(
+        _ title: String,
+        color: UIColor,
+        alignment: NSTextAlignment = .center
+    ) {
+        let label = titleLabel
+        label.attributedText = NSAttributedString(
+            string: title,
+            attributes: [.foregroundColor: color]
+        )
+        label.textAlignment = alignment
+        navigationController?.visibleViewController?.navigationItem.titleView = label
     }
     
-    func setTitle(attributedString: NSMutableAttributedString) {
-        let label = UILabel()
+    func setTitle(
+        attributedString: NSMutableAttributedString,
+        alignment: NSTextAlignment = .center
+    ) {
+        let label = titleLabel
         label.attributedText = attributedString
-        label.sizeToFit()
+        label.textAlignment = alignment
+        navigationController?.visibleViewController?.navigationItem.titleView = label
+    }
+    
+    func setMultilineTitle(
+        attributedString: NSMutableAttributedString,
+        alignment: NSTextAlignment = .center
+    ) {
+        let label = titleLabel
+        label.numberOfLines = 2
+        label.attributedText = attributedString
+        label.textAlignment = alignment
         navigationController?.visibleViewController?.navigationItem.titleView = label
     }
     
