@@ -71,6 +71,13 @@ final class NSNavigationController {
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: color]
     }
     
+    func setTitle(attributedString: NSMutableAttributedString) {
+        let label = UILabel()
+        label.attributedText = attributedString
+        label.sizeToFit()
+        navigationController?.visibleViewController?.navigationItem.titleView = label
+    }
+    
     func setBarButtonItems(direction: BarItemDirection, items: [UIBarButtonItem] = []) {
         if direction == .trailing {
             navigationController?.visibleViewController?.navigationItem.setRightBarButtonItems(items, animated: true)
@@ -81,5 +88,9 @@ final class NSNavigationController {
     
     func setBackground(color: UIColor) {
         navigationController?.navigationBar.backgroundColor = color
+    }
+    
+    func setHidden(isHidden: Bool) {
+        navigationController?.isNavigationBarHidden = isHidden
     }
 }

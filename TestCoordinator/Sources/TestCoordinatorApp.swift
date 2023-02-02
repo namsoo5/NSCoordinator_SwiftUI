@@ -44,7 +44,16 @@ struct AView: View {
             } label: {
                 Text("setup Navi")
             }
+            Button {
+                coordinator.navigationAttributeTitle(title: "댓글")
+            } label: {
+                Text("타이틀 폰트부분 적용")
+            }
+            Button {
+                coordinator.popToRootView()
+            } label: {
+                Text("root")
+            }
         }
-        .navigationTitle("A타이틀")
     }
 }

@@ -44,4 +44,28 @@ final class MainCoordinator: Coordinatable {
         )
         controller.setBackground(color: .gray)
     }
+    
+    func navigationHidden() {
+        controller.setHidden(isHidden: true)
+    }
+    
+    func navigationAttributeTitle(title: String) {
+        let attribute = NSMutableAttributedString(
+            string: title,
+            attributes: [
+                .font: UIFont.systemFont(ofSize: 16),
+                .foregroundColor: UIColor.black
+            ]
+        )
+        attribute.append(
+            NSMutableAttributedString(
+                string: "30",
+                attributes: [
+                    .foregroundColor: UIColor.purple,
+                    .font: UIFont.systemFont(ofSize: 16)
+                ]
+            )
+        )
+        controller.setTitle(attributedString: attribute)
+    }
 }
