@@ -29,7 +29,7 @@ final class MainCoordinator: Coordinatable {
     func setViews<Content: View>(_ views: [Content]) {
         controller.setViews(views)
     }
-    
+    @objc
     func popToRootView() {
         controller.popToRootView()
     }
@@ -46,7 +46,7 @@ final class MainCoordinator: Coordinatable {
     }
     
     func navigationHidden() {
-        controller.setHidden(isHidden: true)
+        controller.setNavigationBarHidden(isHidden: true)
     }
     
     func navigationAttributeTitle(title: String) {
@@ -67,5 +67,12 @@ final class MainCoordinator: Coordinatable {
             )
         )
         controller.setTitle(attributedString: attribute)
+    }
+    
+    func setBackButton() {
+        controller.setBackButtonHidden(isHidden: true)
+        controller.setBarButtonItems(direction: .leading, items: [
+            UIBarButtonItem(image: UIImage(systemName: "arrow.left"), style: .plain, target: self, action: #selector(popToRootView))
+        ])
     }
 }

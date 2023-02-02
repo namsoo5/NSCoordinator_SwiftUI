@@ -54,6 +54,12 @@ struct AView: View {
             } label: {
                 Text("root")
             }
+            Button {
+                coordinator.setBackButton()
+            } label: {
+                Text("backbutton")
+            }
+            
         }
     }
 }

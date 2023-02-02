@@ -90,7 +90,11 @@ final class NSNavigationController {
         navigationController?.navigationBar.backgroundColor = color
     }
     
-    func setHidden(isHidden: Bool) {
+    func setNavigationBarHidden(isHidden: Bool) {
         navigationController?.isNavigationBarHidden = isHidden
+    }
+    
+    func setBackButtonHidden(isHidden: Bool) {
+        navigationController?.visibleViewController?.navigationItem.setHidesBackButton(isHidden, animated: true)
     }
 }
