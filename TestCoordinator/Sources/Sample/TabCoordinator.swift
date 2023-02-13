@@ -41,7 +41,7 @@ final class TabCoordinator: TabCoordinatable {
             .environmentObject(self)
     }
     
-    private func createTab(rootView: any View, tabBarItem: UITabBarItem) -> some Coordinatable {
+    private func createTab(rootView: some View, tabBarItem: UITabBarItem) -> some Coordinatable {
         return MainCoordinator(baseView: rootView, tabBarItem: tabBarItem)
     }
     
@@ -53,7 +53,7 @@ final class TabCoordinator: TabCoordinatable {
         controller?.setSelectedIndex(index)
     }
     
-    func secondTabNavigationTo(view: any View) {
+    func secondTabNavigationTo(view: some View) {
         controller?.moveView(tabIndex: 1, view: view)
     }
 }

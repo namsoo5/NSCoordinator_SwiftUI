@@ -34,7 +34,7 @@ final class NSTabController {
         tabBarController?.selectedIndex = index
     }
     
-    func moveView(tabIndex: Int, view: any View) {
+    func moveView(tabIndex: Int, view: some View) {
         coordinators[tabIndex].controller.push(view: view)
     }
 }

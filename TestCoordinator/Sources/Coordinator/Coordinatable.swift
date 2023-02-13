@@ -16,7 +16,13 @@ protocol Coordinatable: ObservableObject {
     var parentCoordinator: (any Coordinatable)? { get set }
     var rootView: Self.Content { get }
     
-    init(parent: (any Coordinatable)?, baseView: any View, tabBarItem: UITabBarItem?)
+    init(parent: (any Coordinatable)?, baseView: some View, tabBarItem: UITabBarItem?)
+    
+    func push(_ view: some View)
+    func pop()
+    
+    func present(_ view: some View)
+    func dismiss()
 }
 
 extension Coordinatable {
@@ -24,4 +30,8 @@ extension Coordinatable {
     var rootView: some View {
         NSNavigationView(controller: controller).environmentObject(self)
     }
+    func push(_ view: some View) { }
+    func pop() { }
+    func present(_ view: some View) { }
+    func dismiss() { }
 }

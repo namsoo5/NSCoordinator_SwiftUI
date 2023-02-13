@@ -12,7 +12,7 @@ final class MainCoordinator: Coordinatable {
     let controller: NSNavigationController
     var parentCoordinator: (any Coordinatable)?
     
-    init(parent: (any Coordinatable)? = nil, baseView: any View, tabBarItem: UITabBarItem? = nil) {
+    init(parent: (any Coordinatable)? = nil, baseView: some View, tabBarItem: UITabBarItem? = nil) {
         self.parentCoordinator = parent
         self.controller = NSNavigationController(baseView: baseView, tabBarItem: tabBarItem)
         print("init coordinator")
@@ -21,12 +21,14 @@ final class MainCoordinator: Coordinatable {
     deinit {
         print("deinit coordinator")
     }
-    
+    func push(_ view: some View) {
+        controller.push(view: view)
+    }
     func pushAView() {
         controller.push(view: AView())
     }
     
-    func setViews<Content: View>(_ views: [Content]) {
+    func setViews(_ views: [some View]) {
         controller.setViews(views)
     }
     @objc

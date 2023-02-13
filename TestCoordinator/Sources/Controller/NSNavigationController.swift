@@ -18,7 +18,7 @@ final class NSNavigationController {
     let baseView: AnyView
     let tabBarItem: UITabBarItem?
     
-    init<Content: View>(baseView: Content, tabBarItem: UITabBarItem? = nil) {
+    init(baseView: some View, tabBarItem: UITabBarItem? = nil) {
         self.baseView = AnyView(baseView)
         self.tabBarItem = tabBarItem
         print("init router")
@@ -48,12 +48,12 @@ final class NSNavigationController {
         return label
     }
     
-    func push<Content: View>(view: Content) {
+    func push(view: some View) {
         let viewController = UIHostingController(rootView: view)
         navigationController?.pushViewController(viewController, animated: true)
     }
     
-    func present<Content: Coordinatable>(coordinator: Content) {
+    func present(coordinator: some Coordinatable) {
         let baseView = coordinator.rootView.environmentObject(coordinator)
         let viewController = UIHostingController(rootView: baseView)
         viewController.hidesBottomBarWhenPushed = true
@@ -69,7 +69,7 @@ final class NSNavigationController {
         navigationController?.dismiss(animated: true)
     }
     
-    func setViews<Content: View>(_ views: [Content]) {
+    func setViews(_ views: [some View]) {
         let viewControllers = views.map { UIHostingController(rootView: $0) }
         navigationController?.setViewControllers(viewControllers, animated: true)
     }
